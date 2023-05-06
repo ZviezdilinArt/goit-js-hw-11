@@ -20,18 +20,9 @@ body {
     background-image: linear-gradient(to right, black 45%, yellow);
 }
 
-.list {
-    list-style: none;
-}
-
-.link {
-    text-decoration: none;
-}
-
 .form-section {
     position: fixed;
     width: 100%;
-    
 
 }
 
@@ -48,12 +39,20 @@ body {
     background-color: black;
 }
 
-.search-button {
+.input-form {
+    background-color: yellow;
+    color: black;
+}
+
+::placeholder { 
+    color: black;
     
+}
+
+.search-button {
     color: black;
     background-color: yellow;
 }
-
 
 .gallery-section {
     padding-top: 70px;
