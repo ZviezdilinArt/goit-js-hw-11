@@ -36,7 +36,9 @@ function onSearchForm(evt) {
     Notify.warning('Please, fill the field');
     return;
   }
-  renderImagesSubmit(queryParametres);
+  if(!observer) {
+    observer = new IntersectionObserver(LoadMore, options);
+  }
   observer.observe(obserTarget);
 }
 
@@ -48,7 +50,6 @@ function LoadMore(entries, observer) {
     }
   });
 }
-
 
 async function renderImagesLoadMore() {
   try {
@@ -64,6 +65,7 @@ async function renderImagesLoadMore() {
 
     const newGalleryItems = galleryEl.querySelectorAll('.gallery a');
     const lightbox = new SimpleLightbox(newGalleryItems);
+    lightbox.destroy(); 
     newGalleryItems.forEach(item => {
       item.addEventListener('click', elem => {
         elem.preventDefault();
