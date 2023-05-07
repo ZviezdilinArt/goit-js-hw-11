@@ -11,7 +11,7 @@ export function createMarkup(array) {
           downloads,
         }) => {
           return `
-          <div class="photo-card">
+          <div class="photo-card gallery-item">
           <a href="${largeImageURL}" class="photo-link">
     <img src="${webformatURL}" alt="${tags}" loading="lazy" width=500 height=350>
     </a>

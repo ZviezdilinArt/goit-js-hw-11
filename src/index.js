@@ -13,30 +13,20 @@ const galleryEl = document.querySelector('.gallery');
 const obserTarget = document.querySelector('.js-elem');
 const lastMessage = document.querySelector('.js-message');
 
-let currentPage = 1;
-let queryParametres = null;
-
+let currentPage = 0;
+let queryParametres = "";
 let options = {
   root: null,
   rootMargin: '200px',
   threshold: 1.0,
 };
-
 let observer = new IntersectionObserver(LoadMore, options);
+
 
 form.addEventListener('submit', onSearchForm);
 galleryEl.addEventListener('click', evt => {
   evt.preventDefault();
 });
-
-function LoadMore(entries, observer) {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      currentPage += 1;
-      renderImagesLoadMore();
-    }
-  });
-}
 
 function onSearchForm(evt) {
   evt.preventDefault();
@@ -49,6 +39,16 @@ function onSearchForm(evt) {
   renderImagesSubmit(queryParametres);
   observer.observe(obserTarget);
 }
+
+function LoadMore(entries, observer) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      currentPage += 1;
+      renderImagesLoadMore();
+    }
+  });
+}
+
 
 async function renderImagesLoadMore() {
   try {

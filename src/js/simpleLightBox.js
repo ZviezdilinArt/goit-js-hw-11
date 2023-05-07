@@ -11,8 +11,8 @@ export function openModal() {
 }
 
 const options = {}
-const lightbox = new SimpleLightbox('.gallery a', options);
-  
+const lightbox = new SimpleLightbox('.gallery-item a', options);
+
 export function refreshModal() {
   lightbox.refresh();
 }
