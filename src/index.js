@@ -8,52 +8,49 @@ import {
   } from './js/simpleLightBox';
   
 
-const form = document.querySelector('.search-form');
-const galleryEl = document.querySelector('.gallery');
-const obserTarget = document.querySelector('.js-elem');
-const lastMessage = document.querySelector('.js-message');
-
-let currentPage = 0;
-let queryParametres = "";
-let options = {
-  root: null,
-  rootMargin: '200px',
-  threshold: 1.0,
-};
-let observer = new IntersectionObserver(LoadMore, options);
-
-
-form.addEventListener('submit', onSearchForm);
-galleryEl.addEventListener('click', evt => {
-  evt.preventDefault();
-});
-
-function onSearchForm(evt) {
-  evt.preventDefault();
-  queryParametres = evt.currentTarget.elements.searchQuery.value;
-  galleryEl.innerHTML = '';
-  if (!queryParametres) {
-    Notify.warning('Please, fill the field');
-    return;
-  }
-  if(!observer) {
-    observer = new IntersectionObserver(LoadMore, options);
-  }
-  observer.observe(obserTarget);
-  if (currentPage > 0) {
-    galleryEl.innerHTML = ''
-    currentPage = 0;
-  }
-}
-
-function LoadMore(entries, observer) {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      currentPage += 1;
-      renderImagesLoadMore();
-    }
+  const form = document.querySelector('.search-form');
+  const galleryEl = document.querySelector('.gallery');
+  const obserTarget = document.querySelector('.js-elem');
+  const lastMessage = document.querySelector('.js-message');
+  let currentPage = 0;
+  let queryParametres = "";
+  let options = {
+    root: null,
+    rootMargin: '200px',
+    threshold: 1.0,
+  };
+  let observer = new IntersectionObserver(LoadMore, options);
+  form.addEventListener('submit', onSearchForm);
+  galleryEl.addEventListener('click', evt => {
+    evt.preventDefault();
   });
-}
+  function onSearchForm(evt) {
+    evt.preventDefault();
+    queryParametres = evt.currentTarget.elements.searchQuery.value;
+    galleryEl.innerHTML = '';
+    if (!queryParametres) {
+      Notify.warning('Please, fill the field');
+      return;
+    }
+    if(observer) {
+      observer.disconnect();
+      observer = null;
+    }
+    observer = new IntersectionObserver(LoadMore, options);
+    observer.observe(obserTarget);
+    if (currentPage > 0) {
+      galleryEl.innerHTML = ''
+      currentPage = 0;
+    }
+  }
+  function LoadMore(entries, observer) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        currentPage += 1;
+        renderImagesLoadMore();
+      }
+    });
+  }
 
 async function renderImagesLoadMore() {
   try {
