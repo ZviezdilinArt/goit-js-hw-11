@@ -40,6 +40,10 @@ function onSearchForm(evt) {
     observer = new IntersectionObserver(LoadMore, options);
   }
   observer.observe(obserTarget);
+  if (currentPage > 0) {
+    galleryEl.innerHTML = ''
+    currentPage = 0;
+  }
 }
 
 function LoadMore(entries, observer) {
